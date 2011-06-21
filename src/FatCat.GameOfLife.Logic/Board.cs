@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using FatCat.GameOfLife.Logic.Exceptions;
 
@@ -23,19 +22,19 @@ namespace FatCat.GameOfLife.Logic
             get { return _cells; }
         }
 
-        private void InitializeCells()
+        public CellState GetCellState(Coordinate coordinate)
         {
-            _cells = new List<Cell>();
-
-            AddRows();
+            return GetCell(coordinate).State;
         }
 
-        private void AddRows()
+        public void MakeCellAlive(Coordinate coordinate)
         {
-            for (var row = 0; row < Size; row++)
-            {
-                AddColumns(row);
-            }
+            SetCellState(coordinate, CellState.Alive);
+        }
+
+        public void MakeCellDead(Coordinate coordinate)
+        {
+            SetCellState(coordinate, CellState.Dead);
         }
 
         private void AddColumns(int row)
@@ -46,9 +45,12 @@ namespace FatCat.GameOfLife.Logic
             }
         }
 
-        public CellState GetCellState(Coordinate coordinate)
+        private void AddRows()
         {
-            return GetCell(coordinate).State;
+            for (var row = 0; row < Size; row++)
+            {
+                AddColumns(row);
+            }
         }
 
         private Cell GetCell(Coordinate coordinate)
@@ -65,9 +67,16 @@ namespace FatCat.GameOfLife.Logic
             return cell;
         }
 
-        public void MakeCellAlive(Coordinate coordinate)
+        private void InitializeCells()
         {
-            GetCell(coordinate).State = CellState.Alive;
+            _cells = new List<Cell>();
+
+            AddRows();
+        }
+
+        private void SetCellState(Coordinate coordinate, CellState cellState)
+        {
+            GetCell(coordinate).State = cellState;
         }
     }
 }
