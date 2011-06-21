@@ -16,19 +16,14 @@ namespace FatCat.GameOfLife.ViewModel
     /// </summary>
     public class MainViewModel : ViewModelBase
     {
+        public string WelcomeMessage { get; set; }
+
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
         public MainViewModel()
         {
-            if (IsInDesignMode)
-            {
-                // Code runs in Blend --> create design time data.
-            }
-            else
-            {
-                // Code runs "for real"
-            }
+            WelcomeMessage = IsInDesignMode ? "How does this look" : "Hook'em Horns";
         }
     }
 }
