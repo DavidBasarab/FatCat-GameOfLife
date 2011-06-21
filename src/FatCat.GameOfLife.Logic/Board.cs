@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using FatCat.GameOfLife.Logic.Exceptions;
 
 namespace FatCat.GameOfLife.Logic
 {
@@ -46,10 +48,26 @@ namespace FatCat.GameOfLife.Logic
 
         public CellState GetCellState(Coordinate coordinate)
         {
-            return Cells
+            return GetCell(coordinate).State;
+        }
+
+        private Cell GetCell(Coordinate coordinate)
+        {
+            var cell = Cells
                 .Where(i => i.Coordinate == coordinate)
-                .FirstOrDefault()
-                .State;
+                .FirstOrDefault();
+
+            if (cell == null)
+            {
+                throw new CellNotFoundException();
+            }
+
+            return cell;
+        }
+
+        public void MakeCellAlive(Coordinate coordinate)
+        {
+            GetCell(coordinate).State = CellState.Alive;
         }
     }
 }
