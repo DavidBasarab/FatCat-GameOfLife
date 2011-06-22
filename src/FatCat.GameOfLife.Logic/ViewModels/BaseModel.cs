@@ -5,13 +5,25 @@ namespace FatCat.GameOfLife.Logic.ViewModels
 {
     public class BaseModel : ViewModelBase
     {
-        protected void PropertyHasChanged()
+        private void PropertyHasChanged()
         {
-            var frame = new StackFrame(1);
+            var frame = new StackFrame(2);
 
             var propertyName = frame.GetMethod().Name.Substring(4);
 
             RaisePropertyChanged(propertyName);
+        }
+
+        protected void SetPropteryValue<T>(ref T currentValue, T newValue) where T : class
+        {
+            if (currentValue == newValue)
+            {
+                return;
+            }
+
+            currentValue = newValue;
+
+            PropertyHasChanged();
         }
     }
 }

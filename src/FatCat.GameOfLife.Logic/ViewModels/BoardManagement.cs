@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 
@@ -21,14 +22,7 @@ namespace FatCat.GameOfLife.Logic.ViewModels
             get { return _welcomeMessage; }
             set
             {
-                if (_welcomeMessage == value)
-                {
-                    return;
-                }
-
-                _welcomeMessage = value;
-
-                PropertyHasChanged();
+                SetPropteryValue(ref _welcomeMessage, value);
             }
         }
 
@@ -36,9 +30,22 @@ namespace FatCat.GameOfLife.Logic.ViewModels
 
         public RelayCommand SimpleCommand { get; private set; }
 
+        private bool _isSet;
+
         private void ChangeWelcomeMessage()
         {
-            WelcomeMessage = "TEXAS FIGHT!!!!!!!!";
+            if (_isSet)
+            {
+                WelcomeMessage = "HOOK'EM HORNS!!!!!!!!!";
+
+                _isSet = false;
+            }
+            else
+            {
+                WelcomeMessage = "TEXAS FIGHT!!!!!!!!";
+
+                _isSet = true;
+            }
         }
     }
 }
