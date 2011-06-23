@@ -11,6 +11,7 @@ namespace FatCat.GameOfLife.ViewModel
     {
         private static MainViewModel _main;
         private static BoardManagement _boardManagement;
+        private CellManagement _cellManagement;
 
         /// <summary>
         ///     Initializes a new instance of the ViewModelLocator class.

@@ -1,12 +1,10 @@
-﻿using System;
-using System.Diagnostics;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
+﻿using GalaSoft.MvvmLight.Command;
 
 namespace FatCat.GameOfLife.Logic.ViewModels
 {
     public class BoardManagement : BaseModel
     {
+        private bool _isSet;
         private string _welcomeMessage;
 
         public BoardManagement()
@@ -20,17 +18,12 @@ namespace FatCat.GameOfLife.Logic.ViewModels
         public string WelcomeMessage
         {
             get { return _welcomeMessage; }
-            set
-            {
-                SetPropteryValue(ref _welcomeMessage, value);
-            }
+            set { SetPropteryValue(ref _welcomeMessage, value); }
         }
 
         public string TestMessage { get; set; }
 
         public RelayCommand SimpleCommand { get; private set; }
-
-        private bool _isSet;
 
         private void ChangeWelcomeMessage()
         {

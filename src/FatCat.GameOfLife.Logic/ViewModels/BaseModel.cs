@@ -14,7 +14,7 @@ namespace FatCat.GameOfLife.Logic.ViewModels
             RaisePropertyChanged(propertyName);
         }
 
-        protected void SetPropteryValue<T>(ref T currentValue, T newValue) where T : class
+        public virtual void SetPropteryValue<T>(ref T currentValue, T newValue) where T : class
         {
             if (currentValue == newValue)
             {
