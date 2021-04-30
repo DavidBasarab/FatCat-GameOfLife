@@ -5,64 +5,52 @@ using CommandLine;
 
 namespace FatCat.GameOfLife
 {
-    public class Options
-    {
-    }
+	public class Options { }
 
-    internal class Program
-    {
-        private static readonly ManualResetEvent stopEvent = new(false);
-        private static Options Options { get; set; }
-        
-        
+	internal class Program
+	{
+		private static readonly ManualResetEvent stopEvent = new(false);
 
-        private static void Main(string[] args)
-        {
-            Console.CancelKeyPress += OnCancel;
+		private static Options Options { get; set; }
 
-            try
-            {
-                Parser.Default.ParseArguments<Options>(args)
-                    .WithParsed(o => Options = o);
+		private static void DoTestingWork() { Console.WriteLine("This will do testing work!!!"); }
 
-                // Going to try to get this idea working
-                // https://github.com/aspnet/SignalR-samples/tree/master/ChatSample
-                var _ = Task.Run(async () =>
-                {
-                    try
-                    {
-                        
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.Write(ex);
-                    }
-                });
+		private static void Main(string[] args)
+		{
+			Console.CancelKeyPress += OnCancel;
 
-                WaitForExit();
-            }
-            catch (Exception ex)
-            {
-                Console.Write(ex);
-            }
-        }
+			try
+			{
+				Parser.Default.ParseArguments<Options>(args)
+					.WithParsed(o => Options = o);
 
-        private static void OnCancel(object sender, ConsoleCancelEventArgs e)
-        {
-            if (e != null) e.Cancel = true;
+				// Going to try to get this idea working
+				// https://github.com/aspnet/SignalR-samples/tree/master/ChatSample
+				var _ = Task.Run(() =>
+								{
+									try { DoTestingWork(); }
+									catch (Exception ex) { Console.Write(ex); }
+								});
 
-            stopEvent.Set();
-        }
+				WaitForExit();
+			}
+			catch (Exception ex) { Console.Write(ex); }
+		}
 
-        private static void WaitForExit()
-        {
-            Console.WriteLine("Press Control-C to exit . . . .");
+		private static void OnCancel(object sender, ConsoleCancelEventArgs e)
+		{
+			if (e != null) e.Cancel = true;
 
-            while (!stopEvent.WaitOne(TimeSpan.FromMilliseconds(10)))
-            {
-            }
+			stopEvent.Set();
+		}
 
-            Console.Write("Exiting . . . .");
-        }
-    }
+		private static void WaitForExit()
+		{
+			Console.WriteLine("Press Control-C to exit . . . .");
+
+			while (!stopEvent.WaitOne(TimeSpan.FromMilliseconds(10))) { }
+
+			Console.Write("Exiting . . . .");
+		}
+	}
 }
