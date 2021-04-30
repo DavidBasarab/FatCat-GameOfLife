@@ -3,8 +3,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using CommandLine;
 using FatCat.GameOfLife.Utilities;
-using OpenTK.Mathematics;
-using OpenTK.Windowing.Desktop;
 
 namespace FatCat.GameOfLife
 {
@@ -21,12 +19,7 @@ namespace FatCat.GameOfLife
 		{
 			Log.Information("Running game");
 
-			game = new Game(GameWindowSettings.Default, new NativeWindowSettings
-														{
-															Title = "FatCat.GameOfLife",
-															APIVersion = Version.Parse("4.1"),
-															Size = new Vector2i(800, 600)
-														});
+			game = new Game();
 
 			game.Closed += () => OnCancel(null, null);
 
