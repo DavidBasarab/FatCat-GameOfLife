@@ -12,8 +12,8 @@ namespace FatCat.GameOfLife
 
 	internal class Program
 	{
-		private static readonly ManualResetEvent stopEvent = new(false);
 		private static Game game;
+		private static readonly ManualResetEvent stopEvent = new(false);
 
 		private static Options Options { get; set; }
 
@@ -27,6 +27,8 @@ namespace FatCat.GameOfLife
 															APIVersion = Version.Parse("4.1"),
 															Size = new Vector2i(800, 600)
 														});
+
+			game.Closed += () => OnCancel(null, null);
 
 			game.Run();
 		}
@@ -49,7 +51,7 @@ namespace FatCat.GameOfLife
 								});
 
 				WaitForExit();
-				
+
 				game?.Dispose();
 			}
 			catch (Exception ex) { Console.Write(ex); }
