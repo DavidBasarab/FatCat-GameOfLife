@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using CommandLine;
+using FatCat.GameOfLife.Utilities;
 
 namespace FatCat.GameOfLife
 {
@@ -13,7 +14,10 @@ namespace FatCat.GameOfLife
 
 		private static Options Options { get; set; }
 
-		private static void DoTestingWork() { Console.WriteLine("This will do testing work!!!"); }
+		private static void DoTestingWork()
+		{
+			Log.Information("This is just getting stuff running");
+		}
 
 		private static void Main(string[] args)
 		{
