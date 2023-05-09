@@ -1,5 +1,6 @@
 ﻿using FatCat.Toolkit.Logging;
 using FatCat.Toolkit.Threading;
+using Humanizer;
 using Spectre.Console;
 using Thread = FatCat.Toolkit.Threading.Thread;
 
@@ -9,7 +10,7 @@ public class GameBoard
 {
 	private Canvas canvas;
 
-	private IThread Thread { get; set; } = new Thread(new ToolkitLogger());
+	private IThread Thread { get; } = new Thread(new ToolkitLogger());
 
 	public void Show(int width, int height)
 	{
@@ -30,6 +31,15 @@ public class GameBoard
 		}
 
 		Render();
+
+		Thread.Run(async () =>
+					{
+						await Thread.Sleep(1.Seconds());
+
+						canvas.SetPixel(0, 0, Color.Pink1);
+						
+						Render();
+					});
 	}
 
 	private void Render()
