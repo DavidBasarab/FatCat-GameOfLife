@@ -1,12 +1,15 @@
-﻿using Spectre.Console;
+﻿using FatCat.Toolkit.Logging;
+using FatCat.Toolkit.Threading;
+using Spectre.Console;
+using Thread = FatCat.Toolkit.Threading.Thread;
 
 namespace GameOfLife;
 
-public static class Mandelbrot
+public class Mandelbrot
 {
-	private const double MaxValueExtent = 2.0;
+	private IThread Thread { get; set; } = new Thread(new ToolkitLogger());
 
-	public static Canvas Generate(int width, int height)
+	public Canvas Generate(int width, int height)
 	{
 		var canvas = new Canvas(width, height);
 
@@ -25,51 +28,5 @@ public static class Mandelbrot
 		}
 
 		return canvas;
-	}
-
-	private static double Calculate(ComplexNumber c)
-	{
-		const int MaxIterations = 1000;
-		const double MaxNorm = MaxValueExtent * MaxValueExtent;
-
-		var iteration = 0;
-		var z = new ComplexNumber();
-
-		do
-		{
-			z = z * z + c;
-			iteration++;
-		} while (z.Abs() < MaxNorm && iteration < MaxIterations);
-
-		return iteration < MaxIterations
-					? (double)iteration / MaxIterations
-					: 0;
-	}
-
-	private static Color GetColor(double value)
-	{
-		const double MaxColor = 256;
-		const double ContrastValue = 0.2;
-		return new Color(0, 0, (byte)(MaxColor * Math.Pow(value, ContrastValue)));
-	}
-
-	private struct ComplexNumber
-	{
-		public double Real { get; }
-
-		public double Imaginary { get; }
-
-		public ComplexNumber(double real, double imaginary)
-		{
-			Real = real;
-			Imaginary = imaginary;
-		}
-
-		public static ComplexNumber operator +(ComplexNumber x, ComplexNumber y) => new(x.Real + y.Real, x.Imaginary + y.Imaginary);
-
-		public static ComplexNumber operator *(ComplexNumber x, ComplexNumber y) => new(x.Real * y.Real - x.Imaginary * y.Imaginary,
-																						x.Real * y.Imaginary + x.Imaginary * y.Real);
-
-		public double Abs() => Real * Real + Imaginary * Imaginary;
 	}
 }

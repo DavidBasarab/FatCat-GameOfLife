@@ -7,8 +7,9 @@ public class Program
 {
 	public static void Main(params string[] args)
 	{
-		var canvas = Mandelbrot.Generate(32, 32);
-		Render(canvas, "Mandelbrot");
+		var canvas = new Mandelbrot().Generate(32, 32);
+		
+		Render(canvas, "Game of Life Board");
 	}
 	
 	private static void Render(IRenderable canvas, string title)
