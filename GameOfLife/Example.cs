@@ -10,17 +10,17 @@ public static class Mandelbrot
 	{
 		var canvas = new Canvas(width, height);
 
-		var scale = 2 * MaxValueExtent / Math.Min(canvas.Width, canvas.Height);
+		var number = 0;
 
-		for (var i = 0; i < canvas.Height; i++)
+		for (var row = 0; row < height; row++)
 		{
-			var y = (canvas.Height / 2 - i) * scale;
-
-			for (var j = 0; j < canvas.Width; j++)
+			for (var column = 0; column < width; column++)
 			{
-				var x = (j - canvas.Width / 2) * scale;
-				var value = Calculate(new ComplexNumber(x, y));
-				canvas.SetPixel(j, i, GetColor(value));
+				number++;
+
+				var color = number % 2 == 0 ? Color.Green : Color.Black;
+
+				canvas.SetPixel(column, row, color);
 			}
 		}
 
