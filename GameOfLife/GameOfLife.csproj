@@ -8,4 +8,9 @@
         <Nullable>disable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="FatCat.Toolkit" Version="1.0.137" />
+    <PackageReference Include="Spectre.Console" Version="0.46.0" />
+  </ItemGroup>
+
 </Project>
