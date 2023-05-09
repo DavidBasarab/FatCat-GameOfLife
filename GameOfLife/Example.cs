@@ -5,13 +5,15 @@ using Thread = FatCat.Toolkit.Threading.Thread;
 
 namespace GameOfLife;
 
-public class Mandelbrot
+public class GameBoard
 {
+	private Canvas canvas;
+
 	private IThread Thread { get; set; } = new Thread(new ToolkitLogger());
 
-	public Canvas Generate(int width, int height)
+	public void Show(int width, int height)
 	{
-		var canvas = new Canvas(width, height);
+		canvas = new Canvas(width, height);
 
 		var number = 0;
 
@@ -27,6 +29,14 @@ public class Mandelbrot
 			}
 		}
 
-		return canvas;
+		Render();
+	}
+
+	private void Render()
+	{
+		AnsiConsole.WriteLine();
+		AnsiConsole.Write(new Rule("[yellow]Game Board[/]").LeftJustified().RuleStyle("grey"));
+		AnsiConsole.WriteLine();
+		AnsiConsole.Write(canvas);
 	}
 }
