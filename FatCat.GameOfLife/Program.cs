@@ -21,8 +21,6 @@ namespace FatCat.GameOfLife
 
 			game = new Game();
 
-			game.Closed += () => OnCancel(null, null);
-
 			game.Run();
 		}
 
@@ -35,17 +33,7 @@ namespace FatCat.GameOfLife
 				Parser.Default.ParseArguments<Options>(args)
 					.WithParsed(o => Options = o);
 
-				// Going to try to get this idea working
-				// https://github.com/aspnet/SignalR-samples/tree/master/ChatSample
-				var _ = Task.Run(() =>
-								{
-									try { DoTestingWork(); }
-									catch (Exception ex) { Console.Write(ex); }
-								});
-
-				WaitForExit();
-
-				game?.Dispose();
+				DoTestingWork();
 			}
 			catch (Exception ex) { Console.Write(ex); }
 		}
@@ -55,15 +43,6 @@ namespace FatCat.GameOfLife
 			if (e != null) e.Cancel = true;
 
 			stopEvent.Set();
-		}
-
-		private static void WaitForExit()
-		{
-			Console.WriteLine("Press Control-C to exit . . . .");
-
-			while (!stopEvent.WaitOne(TimeSpan.FromMilliseconds(10))) { }
-
-			Console.Write("Exiting . . . .");
 		}
 	}
 }
