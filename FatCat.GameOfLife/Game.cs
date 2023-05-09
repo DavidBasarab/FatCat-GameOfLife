@@ -42,6 +42,10 @@ public class Game : GameWindow
 		};
 
 	private double timer;
+	
+	// private int vertexBufferObject;
+	// private int vertexArrayObject;
+	
 
 	public Game() : base(GameSettings, NativeWindowSettings) { }
 
