@@ -5,7 +5,7 @@
     <LangVersion>latest</LangVersion>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <DebugType>full</DebugType>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFramework>net7.0-windows</TargetFramework>
     <RootNamespace>FatCat.GameOfLife</RootNamespace>
     <AssemblyName>FatCat.GameOfLife</AssemblyName>
     <OutputType>Exe</OutputType>
